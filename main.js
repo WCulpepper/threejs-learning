@@ -1,12 +1,12 @@
 import * as THREE from 'three';
-import {x_axis, y_axis, z_axis} from './three_helpers'
-
+import {x_axis, y_axis, z_axis, drawLine} from './three_helpers'
 
 var w = window.innerWidth
 var h = window.innerHeight
 var aspect = w/h
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(90, aspect, 0.1, 1000)
+const origin = new THREE.Vector3(0,0,0)
 
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(w, h)
@@ -17,10 +17,13 @@ const material = new THREE.MeshPhongMaterial( {color: 0x00ff00} );
 const cube = new THREE.Mesh( geometry, material ); 
 scene.add( cube );
 
-scene.add(x_axis, y_axis, z_axis)
+// drawLine(origin, new THREE.Vector3(1, 0, 0), 0xff0000, scene)
 
 const light = new THREE.DirectionalLight(0xFFFFFF, 1)
 light.position.set(0, 10, 0)
+light.target.position.set(-5, 0, 0)
+scene.add(light)
+scene.add(light.target)
 
 camera.position.z = 5;
 

@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { color } from 'three/tsl';
 
 const origin = new THREE.Vector3(0, 0, 0)
 const x_end = new THREE.Vector3(1, 0, 0)
@@ -23,12 +24,14 @@ const z_mat = new THREE.LineBasicMaterial({color: 0x0000ff })
 const z_axis_geometry = new THREE.BufferGeometry().setFromPoints(z_axis_points)
 const z_axis = new THREE.Line(z_axis_geometry, z_mat)
 
-export function drawLine(p1, p2, mat) {
-    if (typeof p1 != THREE.Vector3 || typeof p2 != THREE.Vector3) return
-
+export function drawLine(p1, p2, color_in, scene) {
+    if (typeof p1 != THREE.Vector3 || typeof p2 != THREE.Vector3 || typeof scene != THREE.Scene) return
+    const line_mat = new THREE.LineBasicMaterial({color: color_in})
     const points = []
     points.push(p1, p2)
-    
+    const line_geometrybuffer = new THREE.BufferGeometry().setFromPoints(points)
+    const line = THREE.Line(line_geometrybuffer, line_mat)
+    scene.add(line)
 }
 
 export {x_axis, y_axis, z_axis}
