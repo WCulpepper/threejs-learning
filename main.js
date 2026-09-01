@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+import {x_axis, y_axis, z_axis} from './three_helpers'
+
 
 var w = window.innerWidth
 var h = window.innerHeight
@@ -10,10 +12,15 @@ const renderer = new THREE.WebGLRenderer()
 renderer.setSize(w, h)
 document.body.appendChild(renderer.domElement)
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 ); 
-const material = new THREE.MeshBasicMaterial( {color: 0x00ff00} ); 
+const geometry = new THREE.IcosahedronGeometry( 1, 0 ); 
+const material = new THREE.MeshPhongMaterial( {color: 0x00ff00} ); 
 const cube = new THREE.Mesh( geometry, material ); 
 scene.add( cube );
+
+scene.add(x_axis, y_axis, z_axis)
+
+const light = new THREE.DirectionalLight(0xFFFFFF, 1)
+light.position.set(0, 10, 0)
 
 camera.position.z = 5;
 
