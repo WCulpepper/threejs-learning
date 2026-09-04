@@ -5,7 +5,7 @@ var w = window.innerWidth
 var h = window.innerHeight
 var aspect = w/h
 const scene = new THREE.Scene()
-const camera = new THREE.PerspectiveCamera(90, aspect, 0.1, 1000)
+const camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000)
 const origin = new THREE.Vector3(0,0,0)
 
 const renderer = new THREE.WebGLRenderer()
@@ -13,7 +13,7 @@ renderer.setSize(w, h)
 document.body.appendChild(renderer.domElement)
 
 const geometry = new THREE.IcosahedronGeometry( 1, 0 ); 
-const material = new THREE.MeshPhongMaterial( {color: 0x00ff00} ); 
+const material = new THREE.MeshPhongMaterial( {color: 0xaa00ff, wireframe: false} ); 
 const cube = new THREE.Mesh( geometry, material ); 
 scene.add( cube );
 
@@ -24,6 +24,10 @@ light.position.set(0, 10, 0)
 light.target.position.set(-5, 0, 0)
 scene.add(light)
 scene.add(light.target)
+
+const light_ambient = new THREE.AmbientLight( 0x404040 ); // soft white light
+scene.add( light_ambient );
+
 
 camera.position.z = 5;
 
